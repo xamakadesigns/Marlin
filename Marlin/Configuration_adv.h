@@ -2154,6 +2154,8 @@
   #define INTERPOLATE       true  // Interpolate X/Y/Z_MICROSTEPS to 256
 
   #if AXIS_IS_TMC(X)
+  // mas 580 from marlin 2.0.5.3 is suspected to be too low.. recommend 625
+  // https://www.reddit.com/r/BIGTREETECH/comments/g8rv5c/rbigtreetech_has_submissions_restricted/
     #define X_CURRENT       580        // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS     16    // 0..256
@@ -2363,6 +2365,7 @@
    * Define you own with
    * { <off_time[1..15]>, <hysteresis_end[-3..12]>, hysteresis_start[1..8] }
    */
+  // mas important that this remains 24V or expect issues with the 'Y motor getting very hot'
   #define CHOPPER_TIMING CHOPPER_DEFAULT_24V
 
   /**
