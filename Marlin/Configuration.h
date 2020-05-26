@@ -121,7 +121,7 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#define BAUDRATE 115200
+#define BAUDRATE 250000
 
 // Enable the Bluetooth serial interface on AT90USB devices
 //#define BLUETOOTH
@@ -411,7 +411,8 @@
 // mas
 // 104gt-2 in cartridge format was the one purchased -- table of values here:
 // https://www.aliexpress.com/item/32816085854.html
-#define TEMP_SENSOR_0 55 // supposed to be a 104gt-2 with 4.7k pullup, but it was reading low... so..
+//#define TEMP_SENSOR_0 55 // supposed to be a 104gt-2 with 4.7k pullup, but it was reading low... so..
+#define TEMP_SENSOR_0 5
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -965,7 +966,7 @@
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define MIN_PROBE_EDGE 30
+#define MIN_PROBE_EDGE 40
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 8000
