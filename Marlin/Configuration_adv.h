@@ -1569,6 +1569,9 @@
  *
  * See https://marlinfw.org/docs/features/lin_advance.html for full instructions.
  */
+
+// mas this might fix corners a bit
+// mas also seems to cause stuttering
 //#define LIN_ADVANCE
 #if ENABLED(LIN_ADVANCE)
   //#define EXTRA_LIN_ADVANCE_K // Enable for second linear advance constants
