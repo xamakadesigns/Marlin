@@ -51,8 +51,18 @@ GCodeQueue queue;
  * GCode line number handling. Hosts may opt to include line numbers when
  * sending commands to Marlin, and lines will be checked for sequentiality.
  * M110 N<int> sets the current line number.
+ *
+ * Line number behavior ignored when DISABLE_SERIAL_LASTN_CHECK is set for the port.
  */
-long gcode_N, GCodeQueue::last_N;
+long GCodeQueue::last_N;
+
+// Line number behavior ignored when DISABLE_SERIAL_LASTN_CHECK is set for the port.
+#ifndef DISABLE_SERIAL_LASTN_CHECK
+  //  0 = SERIAL_PORT
+  //  1 = SERIAL_PORT_2
+  // -1 = Original behavior, line number checking applies to all ports.
+  #define DISABLE_SERIAL_LASTN_CHECK -1
+#endif
 
 /**
  * GCode Command Queue
@@ -466,31 +476,40 @@ void GCodeQueue::get_serial_commands() {
         while (*command == ' ') command++;                   // Skip leading spaces
         char *npos = (*command == 'N') ? command : nullptr;  // Require the N parameter to start the line
 
+        // enforce line number checking behavior if requested by the host
         if (npos) {
 
           bool M110 = strstr_P(command, PSTR("M110")) != nullptr;
 
           if (M110) {
+            // Ignore M110 line number command if DISABLE_SERIAL_LASTN_CHECK is set for this port
+            if (i == DISABLE_SERIAL_LASTN_CHECK)
+              continue;
+
             char* n2pos = strchr(command + 4, 'N');
             if (n2pos) npos = n2pos;
           }
 
-          gcode_N = strtol(npos + 1, nullptr, 10);
+          // Ignore line number checking and do not change last_n if DISABLE_SERIAL_LASTN_CHECK is set for this port
+          if (i != DISABLE_SERIAL_LASTN_CHECK)
+          {
+            long gcode_N = strtol(npos + 1, nullptr, 10);
 
-          if (gcode_N != last_N + 1 && !M110)
-            return gcode_line_error(PSTR(STR_ERR_LINE_NO), i);
+            if (gcode_N != last_N + 1 && !M110)
+              return gcode_line_error(PSTR(STR_ERR_LINE_NO), i);
 
-          char *apos = strrchr(command, '*');
-          if (apos) {
-            uint8_t checksum = 0, count = uint8_t(apos - command);
-            while (count) checksum ^= command[--count];
-            if (strtol(apos + 1, nullptr, 10) != checksum)
-              return gcode_line_error(PSTR(STR_ERR_CHECKSUM_MISMATCH), i);
+            char *apos = strrchr(command, '*');
+            if (apos) {
+              uint8_t checksum = 0, count = uint8_t(apos - command);
+              while (count) checksum ^= command[--count];
+              if (strtol(apos + 1, nullptr, 10) != checksum)
+                return gcode_line_error(PSTR(STR_ERR_CHECKSUM_MISMATCH), i);
+            }
+            else
+              return gcode_line_error(PSTR(STR_ERR_NO_CHECKSUM), i);
+
+            last_N = gcode_N;
           }
-          else
-            return gcode_line_error(PSTR(STR_ERR_NO_CHECKSUM), i);
-
-          last_N = gcode_N;
         }
         #if ENABLED(SDSUPPORT)
           // Pronterface "M29" and "M29 " has no line number
@@ -536,7 +555,7 @@ void GCodeQueue::get_serial_commands() {
         #endif
 
         // Add the command to the queue
-        _enqueue(serial_line_buffer[i], true
+        _enqueue(command, true
           #if NUM_SERIAL > 1
             , i
           #endif
