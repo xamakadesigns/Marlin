@@ -475,11 +475,11 @@ void GCodeQueue::get_serial_commands() {
         // Enforce line number checking behavior if requested by the host
         if (npos) {
 
-          bool M110 = strstr_P(command, PSTR("M110")) != nullptr;
+          const bool M110 = strstr_P(command, PSTR("M110")) != nullptr;
 
           if (M110) {
             // Only check M110 line number for HOST_SERIAL_PORT
-            if (HOST_SERIAL_PORT == -1 || i == HOST_SERIAL_PORT)
+            if (HOST_SERIAL_PORT >= 0 && i != HOST_SERIAL_PORT)
               continue;
 
             char* n2pos = strchr(command + 4, 'N');
