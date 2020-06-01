@@ -113,17 +113,14 @@
 //#define SERIAL_PORT_2 -1
 
 /**
- * Experimental setting to ignore gcode last line number checking for uncooperative TFT screens.
- * 
- * Prevents TFT screen from interfering with Octoprint or Repetier if the line number output
- * from the screen cannot be turned off. Queue.cpp will ignore the line number sent by the screen.
- * 
- * Value is a serial port index, not a USART number
- *  0 = SERIAL_PORT
- *  1 = SERIAL_PORT_2
- * -1 = Original behavior, line number checking applies to all ports.
+ * Host Serial Port
+ * If your touch screen sends line numbers it can mess with host printing.
+ * Use this option to ignore line numbers sent by the LCD, etc.
+ *  1 = SERIAL_PORT
+ *  2 = SERIAL_PORT_2
+ * -1 = Allow line numbers from all serial ports
  */
-//#define DISABLE_SERIAL_LASTN_CHECK -1
+#define HOST_SERIAL_PORT 0
 
 /**
  * This setting determines the communication speed of the printer.
