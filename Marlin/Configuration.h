@@ -129,12 +129,14 @@
 
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_BTT_SKR_MINI_E3_V1_2
+  // #define MOTHERBOARD BOARD_BTT_SKR_MINI_E3_V1_2 // adimlab
+  #define MOTHERBOARD BOARD_BTT_SKR_MINI_E3_V2_0 // flsun
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
 // mas
-#define CUSTOM_MACHINE_NAME "SKR Mini E3 v1.2"
+//#define CUSTOM_MACHINE_NAME "SKR Mini E3 v1.2" // adimlab
+#define CUSTOM_MACHINE_NAME "SKR Mini E3 v2.0" // flsun
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -903,7 +905,7 @@
 /**
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
-#define BLTOUCH
+//#define BLTOUCH // adimlab has bltouch, flsun does not
 
 /**
  * Pressure sensor with a BLTouch-like interface
@@ -1128,7 +1130,7 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 290
+#define X_BED_SIZE 300 // 290 adimlab, 300 flsun
 #define Y_BED_SIZE 300
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
@@ -1137,7 +1139,7 @@
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
-#define Z_MAX_POS 350
+#define Z_MAX_POS 405 // 350 adimlab, 450 flsun
 
 /**
  * Software Endstops
