@@ -16,7 +16,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 #pragma once
@@ -31,11 +31,11 @@
 #define DISABLE_JTAG
 
 // Ignore temp readings during development.
-//#define BOGUS_TEMPERATURE_GRACE_PERIOD 2000
+//#define BOGUS_TEMPERATURE_GRACE_PERIOD    2000
 
 #if EITHER(NO_EEPROM_SELECTED, FLASH_EEPROM_EMULATION)
   #define FLASH_EEPROM_EMULATION
-  #define EEPROM_PAGE_SIZE     (0x800U) // 2KB
+  #define EEPROM_PAGE_SIZE     (0x800U)           // 2KB
   #define EEPROM_START_ADDRESS (0x8000000UL + (STM32_FLASH_SIZE) * 1024UL - (EEPROM_PAGE_SIZE) * 2UL)
   #define MARLIN_EEPROM_SIZE    EEPROM_PAGE_SIZE  // 2KB
 #endif
@@ -138,7 +138,7 @@
   #define E0_SERIAL_RX_PIN                  PD2
 
   // Reduce baud rate to improve software serial reliability
-  #define TMC_BAUD_RATE 19200
+  #define TMC_BAUD_RATE                    19200
 #endif
 
 //
@@ -158,7 +158,7 @@
 // USB connect control
 //
 #define USB_CONNECT_PIN                     PC13
-#define USB_CONNECT_INVERTING false
+#define USB_CONNECT_INVERTING              false
 
 /**
  *                 _____
@@ -260,7 +260,7 @@
    *
    */
 
-  #define CLCD_SPI_BUS 1                          // SPI1 connector
+  #define CLCD_SPI_BUS                         1  // SPI1 connector
 
   #define BEEPER_PIN                        PB6
 
@@ -288,5 +288,5 @@
   #error "SD CUSTOM_CABLE is not compatible with SKR E3 DIP."
 #endif
 
-#define ON_BOARD_SPI_DEVICE 1                     // SPI1
+#define ON_BOARD_SPI_DEVICE                    1  // SPI1
 #define ONBOARD_SD_CS_PIN                   PA4   // Chip select for "System" SD card
