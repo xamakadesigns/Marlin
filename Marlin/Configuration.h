@@ -788,7 +788,9 @@
  */
 // mas workaround for stuttering issue...
 // https://github.com/MarlinFirmware/Marlin/issues/15513
-#define CLASSIC_JERK
+//
+// mas (since fixed)
+//#define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
   #define DEFAULT_XJERK 10.0
   #define DEFAULT_YJERK 10.0
