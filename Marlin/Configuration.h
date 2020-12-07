@@ -910,7 +910,7 @@
 /**
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
-//#define BLTOUCH // adimlab has bltouch, flsun does not
+#define BLTOUCH
 
 /**
  * Pressure sensor with a BLTouch-like interface
