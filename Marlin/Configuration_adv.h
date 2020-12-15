@@ -573,7 +573,7 @@
 //
 // For Z set the number of stepper drivers
 //
-#define NUM_Z_STEPPER_DRIVERS 1   // (1-4) Z options change based on how many
+#define NUM_Z_STEPPER_DRIVERS 2   // (1-4) Z options change based on how many
 
 #if NUM_Z_STEPPER_DRIVERS > 1
   //#define Z_MULTI_ENDSTOPS
@@ -849,8 +849,8 @@
 #define DEFAULT_STEPPER_DEACTIVE_TIME 60*60
 #define DISABLE_INACTIVE_X true
 #define DISABLE_INACTIVE_Y true
-#define DISABLE_INACTIVE_Z true  // Set 'false' if the nozzle could fall onto your printed part!
-#define DISABLE_INACTIVE_E true
+#define DISABLE_INACTIVE_Z false // mas // Set 'false' if the nozzle could fall onto your printed part!
+#define DISABLE_INACTIVE_E false // mas
 
 // If the Nozzle or Bed falls when the Z stepper is disabled, set its resting position here.
 //#define Z_AFTER_DEACTIVATE Z_HOME_POS
@@ -2355,7 +2355,8 @@
   #endif
 
   #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT       580
+    //#define Z_CURRENT       580
+    #define Z_CURRENT      400 // mas
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS     16
     #define Z_RSENSE          0.11
@@ -2364,7 +2365,8 @@
   #endif
 
   #if AXIS_IS_TMC(Z2)
-    #define Z2_CURRENT      800
+//    #define Z2_CURRENT      800
+    #define Z2_CURRENT      400 // mas
     #define Z2_CURRENT_HOME Z2_CURRENT
     #define Z2_MICROSTEPS    16
     #define Z2_RSENSE         0.11
@@ -2496,15 +2498,15 @@
    * Set *_SERIAL_TX_PIN and *_SERIAL_RX_PIN to match for all drivers
    * on the same serial port, either here or in your board's pins file.
    */
-  #define  X_SLAVE_ADDRESS 0
-  #define  Y_SLAVE_ADDRESS 0
-  #define  Z_SLAVE_ADDRESS 0
+  //#define  X_SLAVE_ADDRESS 0
+  //#define  Y_SLAVE_ADDRESS 0
+  //#define  Z_SLAVE_ADDRESS 0
   #define X2_SLAVE_ADDRESS 0
   #define Y2_SLAVE_ADDRESS 0
-  #define Z2_SLAVE_ADDRESS 0
+  //#define Z2_SLAVE_ADDRESS 0
   #define Z3_SLAVE_ADDRESS 0
   #define Z4_SLAVE_ADDRESS 0
-  #define E0_SLAVE_ADDRESS 0
+  //#define E0_SLAVE_ADDRESS 0
   #define E1_SLAVE_ADDRESS 0
   #define E2_SLAVE_ADDRESS 0
   #define E3_SLAVE_ADDRESS 0
@@ -2513,6 +2515,12 @@
   #define E6_SLAVE_ADDRESS 0
   #define E7_SLAVE_ADDRESS 0
 
+// mas - required for SKR - https://github.com/MarlinFirmware/Marlin/issues/19547
+  #define  X_SLAVE_ADDRESS 0
+  #define  Y_SLAVE_ADDRESS 2
+  #define  Z_SLAVE_ADDRESS 1
+  //#define E0_SLAVE_ADDRESS 3
+  #define Z2_SLAVE_ADDRESS 3
   /**
    * Software enable
    *
@@ -2576,6 +2584,7 @@
    * M912 - Clear stepper driver overtemperature pre-warn condition flag.
    * M122 - Report driver parameters (Requires TMC_DEBUG)
    */
+  // MAS just reports tmc connection error
   //#define MONITOR_DRIVER_STATUS
 
   #if ENABLED(MONITOR_DRIVER_STATUS)
