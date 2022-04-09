@@ -528,7 +528,7 @@
 // When first starting the main fan, run it at full speed for the
 // given number of milliseconds.  This gets the fan spinning reliably
 // before setting a PWM value. (Does not work with software PWM for fan on Sanguinololu)
-//#define FAN_KICKSTART_TIME 100
+#define FAN_KICKSTART_TIME 100 // MAS good for low fan speeds
 
 // Some coolers may require a non-zero "off" state.
 //#define FAN_OFF_PWM  1
@@ -605,7 +605,7 @@
  * Multiple extruders can be assigned to the same pin in which case
  * the fan will turn on when any selected extruder is above the threshold.
  */
-#define E0_AUTO_FAN_PIN -1
+#define E0_AUTO_FAN_PIN PC7 // MAS - https://github.com/bigtreetech/BIGTREETECH-SKR-mini-E3/issues/277
 #define E1_AUTO_FAN_PIN -1
 #define E2_AUTO_FAN_PIN -1
 #define E3_AUTO_FAN_PIN -1
@@ -871,7 +871,7 @@
 
   // Safety: The probe needs time to recognize the command.
   //         Minimum command delay (ms). Enable and increase if needed.
-  //#define BLTOUCH_DELAY 500
+   #define BLTOUCH_DELAY 250 // mas
 
   /**
    * Settings for BLTOUCH Classic 1.2, 1.3 or BLTouch Smart 1.0, 2.0, 2.2, 3.0, 3.1, and most clones:
@@ -1989,6 +1989,8 @@
  *
  * See https://marlinfw.org/docs/features/lin_advance.html for full instructions.
  */
+// mas this might fix corners a bit
+// mas also seems to cause stuttering
 //#define LIN_ADVANCE
 #if ENABLED(LIN_ADVANCE)
   //#define EXTRA_LIN_ADVANCE_K // Enable for second linear advance constants
@@ -2304,6 +2306,8 @@
  * Currently handles M108, M112, M410, M876
  * NOTE: Not yet implemented for all platforms.
  */
+// mas enable the emergency parser!
+// mas not yet supported!
 //#define EMERGENCY_PARSER
 
 /**
@@ -2684,6 +2688,8 @@
   #define INTERPOLATE      true
 
   #if AXIS_IS_TMC(X)
+    // mas 580 from marlin 2.0.5.3 is suspected to be too low.. recommend 625
+    // https://www.reddit.com/r/BIGTREETECH/comments/g8rv5c/rbigtreetech_has_submissions_restricted/
     #define X_CURRENT       800        // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS     16        // 0..256
@@ -2911,9 +2917,11 @@
    * Set *_SERIAL_TX_PIN and *_SERIAL_RX_PIN to match for all drivers
    * on the same serial port, either here or in your board's pins file.
    */
-  //#define  X_SLAVE_ADDRESS 0
-  //#define  Y_SLAVE_ADDRESS 0
-  //#define  Z_SLAVE_ADDRESS 0
+  // mas - required for SKR - https://github.com/MarlinFirmware/Marlin/issues/19547
+  #define  X_SLAVE_ADDRESS 0
+  #define  Y_SLAVE_ADDRESS 2
+  #define  Z_SLAVE_ADDRESS 1
+  #define E0_SLAVE_ADDRESS 3
   //#define X2_SLAVE_ADDRESS 0
   //#define Y2_SLAVE_ADDRESS 0
   //#define Z2_SLAVE_ADDRESS 0
@@ -2966,7 +2974,9 @@
    * Define your own with:
    * { <off_time[1..15]>, <hysteresis_end[-3..12]>, hysteresis_start[1..8] }
    */
-  #define CHOPPER_TIMING CHOPPER_DEFAULT_12V        // All axes (override below)
+  // mas important that this remains 24V or expect issues with the 'Y motor getting very hot'
+  #define CHOPPER_TIMING CHOPPER_DEFAULT_24V
+  //#define CHOPPER_TIMING CHOPPER_DEFAULT_12V        // All axes (override below)
   //#define CHOPPER_TIMING_X  CHOPPER_TIMING        // For X Axes (override below)
   //#define CHOPPER_TIMING_X2 CHOPPER_TIMING_X
   //#define CHOPPER_TIMING_Y  CHOPPER_TIMING        // For Y Axes (override below)
