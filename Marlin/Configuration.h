@@ -119,7 +119,7 @@
   #define DELTA_DIAGONAL_ROD 340.0        // mas (mm)
 
   // Distance between bed and nozzle Z home position
-  #define DELTA_HEIGHT 597.50             // mas (mm) Get this value from G33 auto calibrate
+  #define DELTA_HEIGHT 630.0             // mas (mm) Get this value from G33 auto calibrate
 
   #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 } // Get these values from G33 auto calibrate
 
@@ -1835,7 +1835,7 @@
 
 
 // Delta only homes to Z
-#define HOMING_FEEDRATE_MM_M { (200*60), (200*60), (200*60) } // mas
+#define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (50*60) } // mas
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
