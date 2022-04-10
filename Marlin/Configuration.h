@@ -907,7 +907,7 @@
 #define X_MAX_ENDSTOP_INVERTING true // mas // set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING true // mas // set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING true // mas // set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING true // mas // set to true to invert the logic of the probe.
+#define Z_MIN_PROBE_ENDSTOP_INVERTING false // mas // set to true to invert the logic of the probe.
 
 /**
  * Stepper Drivers
