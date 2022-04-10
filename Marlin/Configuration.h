@@ -2529,7 +2529,7 @@
 // MKS LCD12864A/B with graphic controller and SD support. Follows MKS_MINI_12864 pinout.
 // https://www.aliexpress.com/item/33018110072.html
 //
-//#define MKS_LCD12864A
+#define MKS_LCD12864A
 //#define MKS_LCD12864B
 
 //
@@ -2556,7 +2556,7 @@
 //
 // mas - see https://www.reddit.com/r/BIGTREETECH/comments/eurq95/help_tft24_v11_to_skr_mini_e3_v12_cable_pinout/
 // mas use exp3 on the tft35
-#define CR10_STOCKDISPLAY
+//#define CR10_STOCKDISPLAY
 
 //
 // Ender-2 OEM display, a variant of the MKS_MINI_12864
